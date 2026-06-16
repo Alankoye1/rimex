@@ -1,0 +1,90 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Stores user basic information and usage stats.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "phone": { "type": "string" },
+        "isPro": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "ChatSession": {
+      "title": "Chat Session",
+      "description": "A single chat session containing messages.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "type": { "type": "string", "enum": ["normal", "ultra"] },
+        "messages": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "type", "createdAt"]
+    },
+    "AcademicHistory": {
+      "title": "Academic History",
+      "description": "Stores generated mind maps, flashcards, etc.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "type": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "timestamp": { "type": "integer" }
+      },
+      "required": ["userId", "type", "content"]
+    },
+    "AdConfig": {
+      "title": "Ad Advertisement Configuration",
+      "description": "Structure of an in-app advertisement document.",
+      "type": "object",
+      "properties": {
+        "active": { "type": "boolean" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "link": { "type": "string" },
+        "imageUrl": { "type": "string" }
+      },
+      "required": ["active", "title", "description", "link", "imageUrl"]
+    },
+    "AppConfig": {
+      "title": "Official App Information",
+      "description": "Structure of official service account information.",
+      "type": "object",
+      "properties": {
+        "officialPhone": { "type": "string" },
+        "officialWhatsApp": { "type": "string" },
+        "officialTelegram": { "type": "string" }
+      },
+      "required": ["officialPhone", "officialWhatsApp", "officialTelegram"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profile data."
+    },
+    "chats/{chatId}": {
+      "schema": "ChatSession",
+      "description": "Chat conversations for normal and ultra chat."
+    },
+    "history/{historyId}": {
+      "schema": "AcademicHistory",
+      "description": "User's academic tools history."
+    },
+    "config/{configId}": {
+      "schema": "configId == 'ads' ? 'AdConfig' : 'AppConfig'",
+      "description": "App and ad config details."
+    }
+  }
+}

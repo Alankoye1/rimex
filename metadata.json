@@ -1,0 +1,11 @@
+{
+  "name": "Remix: Academic AI Kurdish v.1",
+  "description": "Academic application featuring academic tools and AI assistants.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

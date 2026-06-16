@@ -1,0 +1,606 @@
+Modern Systems Analysis
+and Design
+I.S.E. dept.
+The Lecturer
+Assist. Lect.
+Mrs. Najat Yohana Danha
+- Managing the Information Systems Project with a PVF case study
+&
+- Identifying and Selecting Systems Development Projects
+- Initiating and Planning Systems Development Projects
+Assist. Lect.
+ 
+M 
+ajat Yohana Danha
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 1 of 50 --
+
+Pine Valley Furniture (PVF)
+◼ The case study that we will work on it is PVF ,which is:-
+ Manufactures high-quality wood furniture
+ Distributes to retail stores within the U.S.
+ Started in the early 1980s and expanded by 1984 doubling sales volume
+ By 1990, Pine Valley Furniture had become a complex company, employing over 50 persons
+ Company organized into functional areas:
+◼ Manufacturing ,which was further subdivided into three separate functions.
+◼ Sales
+◼ Orders
+◼ Accounting
+◼ Purchasing
+ Established manual information systems
+ PVF installed a network server to automate invoicing, accounts receivable, and inventory
+control applications.
+ In the late 1990s, PVF upgraded the network server and implemented a centralized database
+management system.
+2
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 2 of 50 --
+
+ PVF decided to develop its application software in-house.
+ PVF hired staff and bought computer software and hardware.
+ The new information system will take into account market
+conditions, the Internet, and WWW.
+ The Project Manager plays the key role in developing the new
+information system.
+ The project manager’s environment is one of continual change and
+problem solving.
+ The project manager’s understanding of the project management
+process is critical.
+ Juanita Lopez and Chris Martin are the project managers for Pine
+Valley Furniture.
+3
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 3 of 50 --
+
+➢ What is a Project?
+➢ Project – a planned undertaking of related activities to reach an objective that has a
+beginning and an end.
+➢ “Unique process consisting of a set of coordinated and controlled activities with start
+and finish dates, undertaken to achieve an objective conforming to specific
+requirements, including constraints of time, cost, quality and resources”
+➢ A Project is a planned set of activities.
+➢ A Project has a scope
+➢ A Project has time, cost, quality and resource constraints
+➢ What is Project Management?
+ the art of organizing, leading, reporting and completing a project through people .
+ Project management: a controlled process of initiating, planning, executing, and closing
+down a project..
+➢ A Project Manager is a systems analyst with a diverse set of skills – management, leadership,
+technical, conflict management, and customer relationship – who is responsible for initiating,
+planning, executing, and closing down a project.
+➢
+Managing the Information Systems Project.
+4
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 4 of 50 --
+
+Project Management Process
+-Project Management Process
+1) Initiating the Process.
+2) Planning the Project.
+3) Executing the Project.
+4) Closing down the Project.
+5
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 5 of 50 --
+
+6
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 6 of 50 --
+
+Project Management Activities
+7
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 7 of 50 --
+
+Project Management Process
+1.Initiating a Project
+Project initiation : the first
+phase of the project management
+process in which activities are
+performed to assess the size,
+scope, and complexity of the
+project and to establish procedures
+to support later project activities
+
+8
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 8 of 50 --
+
+The process of project initiation includes:-
+1) Establishing An initiation team
+2) Establishing A relationship with the customer
+3) Establishing A project initiation plan (Define
+activities required to organize team)
+4) Establishing Management procedures and Develop
+team communication and reporting procedures
+5) Establishing A project management environment
+and project work book( Collect and organize tools).
+slide#10.
+6) Developing a project charter . slide#15.
+9
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 9 of 50 --
+
+What is A project workbook?
+- Project workbook is an online or hard-copy repository for all
+project correspondence, inputs, outputs, deliverables, procedures, and
+standards that are used.. It consiste of 9 sections as shown below:-
+10
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 10 of 50 --
+
+Project Workbook
+11
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 11 of 50 --
+
+What is System
+Service Request
+(SSR) ?
+-SSR a standard
+form for requesting or
+proposing systems
+development work
+within an
+organization
+-SSR includes the
+contact person, a
+problem statement, a
+service request
+statement, and liaison
+contact information.
+12
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 12 of 50 --
+
+System Service Request (SSR)
+13
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 13 of 50 --
+
+14
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 14 of 50 --
+
+❑ The key activity of project initiation is the development of
+the project charter, which is :-
+➢ a short, high-level document prepared for both internal and external
+stakeholders
+➢ It formally announces the establishment of the project.
+➢ It briefly describes its objectives, key assumptions, and stakeholders.
+➢ A short document that is prepared for both internal and external
+stakeholders.
+➢ Provides a high-level overview of the project.
+➢ Useful communication tool that helps to assure that the organizations
+and other stakeholders understand the initiation of a project.
+What is A project charter ?
+15
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 15 of 50 --
+
+16
+1. Project title and date of authorization
+2. Project manager name and contact information
+3. Customer name and contact information
+4. Projected start and completion dates
+5. Key stakeholders, project role, and responsibilities
+6. Project objectives and description
+7. Key assumptions or approach
+8. Signature section for key stakeholders
+Project Charter typically contains:
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 16 of 50 --
+
+17
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 17 of 50 --
+
+Project Management Process
+2. Planning the Project
+◼ Project planning – the second phase of the project management process that
+focuses on defining clear, discrete activities and the work needed to complete each
+activity within a single project(i.e. The key activity of project planning is the
+process of defining clear, discrete activities and the work needed to complete each
+activity within a single project.)
+◼ The objective of the project planning process is the development of a Baseline
+Project Plan (BPP) and the Project Scope Statement (PSS)
+◼ Ten Project Planning Activities (i.e. Baseline Project Plan (BPP) steps) :-
+18
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 18 of 50 --
+
+1. Describe project scope, alternatives, and feasibility ,during this
+activity you should reach agreement on the following questions :-
+◼ What problems or opportunities does the project address?
+◼ What are the quantifiable results to be achieved?
+◼ What needs to be done?
+◼ How will success be measured?
+◼ How will we know when we are finished?
+Now let us start with these steps :-
+Ten Project Planning Activities (i.e. towerd to Baseline
+Project Plan (BPP) steps) .
+19
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 19 of 50 --
+
+2. Divide the project into manageable tasks:
+ Work Breakdown Structure (WBS) – the process of
+dividing the project into manageable tasks and
+logically ordering them
+20
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 20 of 50 --
+
+21
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 21 of 50 --
+
+3. Estimate resources and create a resource plan:
+ Constructive Cost Model (COCOMO) – a widely
+used method which uses parameters that are derived
+from prior projects of differing complexity
+ COCOMO uses these different parameters to predict
+human resource requirements for basic, intermediate,
+and very complex systems.
+4. Develop a preliminary schedule:
+ Network diagram – depicts project tasks and their
+interrelationships .
+22
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 22 of 50 --
+
+5. Develop a communication plan:
+ Who are the stakeholders for this project?
+ What information does each stakeholder need?
+ When, and at what interval, does this information need to be produced?
+ What sources will be used to gather and generate this information?
+ Who will collect, store, and verify the accuracy of this information?
+ Who will organize and package this information into a document?
+ Who will be the contact person for each stakeholder should any
+questions arise?
+ What format will be used to package this information?
+ What communication medium will be most effective for delivering this
+information to the stakeholder?
+23
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 23 of 50 --
+
+Stakeholder ◼ Typical Stakeholders:-
+1) Sponsor
+2) Funding Body
+3) Customer
+4) Suppliers
+5) End User
+6) HSE/Environmental
+Agency
+7) Maintenance Team
+8) Neighbours/Community/
+Shareholders
+9) Fusion Community
+10) Interfaces
+◼ Stakeholder: “A
+person or group of
+people who have a
+vested interest in
+the success of an
+organization and
+the environment in
+which the
+organization
+operates”
+24
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 24 of 50 --
+
+25
+7. Identifyand assess risk : The goal of this activity is to identify sources of
+project risk and to estimate the consequences of those risks.
+-Project Risk Factors:-
+ Project size
+-Team size, organizational departments, project duration, programming effort
+ Project structure
+-New vs. renovated system, resulting organizational changes, management commitment, user perceptions
+ Development group
+-Familiarity with platform, software, development method, application area, development of similar systems
+ User group
+-Familiarity with IS development process, application area, use of similar systems
+6.Determine project standards and procedures:
+During this activity, you will specify how various deliverables(Deliverable – an end
+product of an SDLC phase) are produced and tested by you and your project team.
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 25 of 50 --
+
+ A preliminary
+budget
+outlines the
+planned
+expenses and
+revenues
+associated
+with your
+project.
+8 . Create a preliminary budget:
+26
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 26 of 50 --
+
+9. Develop Project Scope Statement (PSS)
+- Project Scope Statement (PSS)
+❑ Project Scope statement is part of the BPP introduction.
+➢ Developed primarily for the customer :- A document prepared for the
+customer,
+➢ Outlines work that will be done and clearly describes what the project will
+deliver :- Outlines at a high level all work required to complete the project.
+➢ Provides a clear understanding of project size, duration, and outcomes
+❑ PSS Sections:
+➢ Problem statement
+➢ Project objectives
+➢ Project description
+➢ Business benefits
+➢ Deliverables
+➢ Expected duration
+27
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 27 of 50 --
+
+28
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 28 of 50 --
+
+10. Setting a Baseline Project Plan (BPP):
+ Provides an estimate of the project’s tasks and resource requirements and is used to guide
+the next project phase – project execution.
+ All the information collected during project initiation and planning is collected and
+organized into a document called the baseline project plan BPP.
+ Baseline Project Plan (BPP) is a document intended primarily to guide the
+development team.
+ A major outcome and deliverable from the PIP phase,
+ Contains the best estimate of a project’s scope, benefits, costs, risks, and resource
+requirements.
+ Sections:-
+▪ Introduction
+▪ System description
+▪ Feasibility assessment
+▪ Management issues
+29
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 29 of 50 --
+
+a Baseline Project Plan (BPP)
+30
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 30 of 50 --
+
+Project Management Process
+3.Project execution – the third phase of the project management
+process in which the plans created in the prior phases (project initiation
+and planning) are put into action.
+4. Project Closedown – the final phase of the project
+management process that focuses on bringing a project to an
+end.
+31
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 31 of 50 --
+
+How to Representing and Scheduling Project
+Plans
+◼ A project manager has a wide variety of techniques
+available for depicting and documenting project
+plans. These planning documents can take the form
+of graphical or textual reports, although graphical
+reports have become most popular for depicting
+project plans .
+◼ The most commonly used methods are
+Gantt charts and Network diagrams.
+32
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 32 of 50 --
+
+A Gantt chart is a
+graphical representation
+of a project that shows
+each task as a
+horizontal bar whose
+length is proportional to
+its time for completion.
+Different colors, shades,
+or shapes can be used to
+highlight each kind of
+task.
+Network diagrams
+have two major
+components: arrows
+and nodes ,Arrows
+reflect the sequence
+of activities,
+whereas nodes
+reflect activities
+that consume time
+and resources.
+33
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 33 of 50 --
+
+Key differences between
+Gantt Charts and Network Diagrams:
+Gantt charts
+◼ Show task durations.
+◼ Show time overlap.
+◼ Show slack time in
+duration.
+ Network diagrams
+◼ Show task dependencies.
+◼ Do not show time overlap, but show
+parallelism.
+◼ Show slack time in boxes.
+34
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 34 of 50 --
+
+p.65 (FIGURE 3-20
+Graphical diagrams that depict project plans:
+(A) A Gantt chart, (B) A Network diagram.
+35
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 35 of 50 --
+
+(A) A Gantt chart
+36
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 36 of 50 --
+
+B) A Network diagram
+37
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 37 of 50 --
+
+How to Calculating Expected Time Durations using PERT ?
+PERT (Program Evaluation Review Technique) – a technique
+that uses optimistic, pessimistic, and realistic time
+estimates to calculate the expected time for a
+particular task.
+38
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 38 of 50 --
+
+Calculating Expected Time
+Durations using PERT (Cont.)
+◼ Formula for Estimated Time:
+ET = (o + 4r + p)/6
+◼ Where
+ ET = expected time for the completion of an activity.
+ o = optimistic completion time for an activity.
+ r = realistic completion time for an activity.
+ p = pessimistic completion time for an activity.
+39
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 39 of 50 --
+
+40
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 40 of 50 --
+
+Identifying and Selecting Systems
+Development Projects
+41
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 41 of 50 --
+
+42
+The Process of Initiating and
+Planning IS Development Projects
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 42 of 50 --
+
+The Process of Identifying and Selecting IS
+Development Projects (Cont.)
+◼ Classifying and ranking IS development projects.
+ Using value chain analysis or other evaluation criteria
+◼ Value chain analysis: the process of analyzing an
+organization’s activities for making products and/or
+services to determine where value is added and costs
+are incurred.
+43
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 43 of 50 --
+
+The Process of Identifying and Selecting
+IS Development Projects (Cont.)
+44
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 44 of 50 --
+
+The Process of Identifying and Selecting IS
+Development Projects (Cont.)
+45
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 45 of 50 --
+
+Corporate Strategic Planning
+◼ Ongoing process that defines mission, objectives, and strategies of an organization.
+ Corporate strategy involves:
+◼ Mission statement
+◼ Objective statements
+◼ Description of competitive strategy
+◼ Mission statement: A statement that makes it clear what business a company is in.
+◼ Objective statement: a series of statements that express an organization’s
+qualitative and quantitative goals for reaching a desired future position.
+◼ Competitive strategy: the method by which an organization attempts to
+achieve its mission and objectives.
+ Main types:
+◼ Low-cost producer
+◼ Product differentiation
+◼ Product focus
+46
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 46 of 50 --
+
+47
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 47 of 50 --
+
+48
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 48 of 50 --
+
+Business Functions, Data Entities,
+and Information Systems of PVF
+49
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 49 of 50 --
+
+50
+ISD- Assist. Lect. Najat Yohana Danha
+
+-- 50 of 50 --
+

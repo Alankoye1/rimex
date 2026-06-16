@@ -1,0 +1,22 @@
+{
+  "file": "Origins of SW.pdf",
+  "pages": 12,
+  "info": {
+    "PDFFormatVersion": "1.7",
+    "Language": "en-US",
+    "EncryptFilterName": "Standard",
+    "IsLinearized": true,
+    "IsAcroFormPresent": false,
+    "IsXFAPresent": false,
+    "IsCollectionPresent": false,
+    "IsSignaturesPresent": false,
+    "Author": "Mike Mitri",
+    "CreationDate": "D:20171029230022+03'00'",
+    "Creator": "Microsoft® PowerPoint® 2010 Trial",
+    "ModDate": "D:20260117143047+03'00'",
+    "Producer": "Microsoft® PowerPoint® 2010 Trial",
+    "Title": "Modern Systems Analysis and Design Ch1"
+  },
+  "metadata": {},
+  "text": "Modern Systems\nAnalysis\nand Design\n.I.S.E. dept\nThird Stage\nThe Lecturer\nAssist. Lect.\nMrs. Najat Yohana Denha\nThe Origins of\nSoftware\nLect. # 2\n\n-- 1 of 12 --\n\nLearning Objectives\nChapter 2 2\n Explain outsourcing.\n Describe six different sources of\nsoftware.\n Explain reuse and its role in software\ndevelopment.\n\n-- 2 of 12 --\n\nIntroduction\nChapter 2 3\n There are various sources of software for\norganizations.\n There are criteria to evaluate software\nfrom different sources.\n The impact of reuse on software\ndevelopment.\n\n-- 3 of 12 --\n\nSystems Acquisition: Outsourcing\nChapter 2 4\n Outsourcing: Turning over\nresponsibility of some or all of an\norganization's information systems\napplications and operations to an\noutside firm.\n Outsourcing Examples\nA company that runs payroll\napplications for clients.\nA company that runs your\napplications at your site.\n\n-- 4 of 12 --\n\nChapter 2 5\n Reasons to outsource\nCost-effective.\nTake advantage of economies of\nscale.\nFree up internal resources.\nReduce time to market.\nIncrease process efficiencies.\nSystem development is a non-core\nactivity for the organization.\n\n-- 5 of 12 --\n\nSources of Software\nChapter 2 6\n1. Information technology services firm.\n2. Packaged software producers.\n3. Enterprise-wide solutions\n4. . Application service providers (ASP)\n5. Open source software.\n6. In-house developers.\n\n-- 6 of 12 --\n\nSources of Software\nChapter 2 7\n\n-- 7 of 12 --\n\nReuse\nChapter 2 8\n The use of previously written software\nresources, especially objects and\ncomponents, in new applications.\n Commonly applied to two different\ndevelopment technologies:\n Object-oriented development\n Component-based development\n\n-- 8 of 12 --\n\nReuse (Cont)\nChapter 2 9\n Object-oriented development\n Object class encapsulates data\nand behavior of common\norganizational entities (e.g .\nEmployees)\n Object-oriented development\nreuse is using object classes in\nmore than one application (e.g.\nEmployee).\n\n-- 9 of 12 --\n\nChapter 2 10\n Component-based development\n Components can be as small as\nobjects or as large as pieces of\nsoftware that handle single business\nfunctions.\n Component-based development\nreuse is the assembly of an\napplication from many different\ncomponents at many different\nlevels of complexity and size\n(e.g. Currency conversion.)\n\n-- 10 of 12 --\n\nCosts and Benefits of Reuse\nChapter 2 11\n\n-- 11 of 12 --\n\nSummary\n In this chapter you learned how to:\n Explain outsourcing.\n Describe six different sources of software..\n Explain reuse and its role in software\ndevelopment.\nChapter 2 12\n\n-- 12 of 12 --\n\n"
+}

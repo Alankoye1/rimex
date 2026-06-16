@@ -1,0 +1,115 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // --- Global Safety Net ---
+    match /{document=**} {
+      allow read, write: if false;
+    }
+    
+    // --- Core Verification Helpers ---
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() 
+        && request.auth.token.email == "acadimecstaf2003@gmail.com" 
+        && request.auth.token.email_verified == true;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+    
+    function existing() {
+      return resource.data;
+    }
+
+    // --- Entity Validation Blueprints ---
+    
+    function isValidUser(data) {
+      return data.uid == request.auth.uid 
+        && data.email is string 
+        && data.email.size() <= 256
+        && (!data.keys().hasAll(['role']) || data.role == 'user')
+        && (!data.keys().hasAll(['isPro']) || data.isPro == false);
+    }
+
+    function isValidChat(data) {
+      return data.userId == request.auth.uid 
+        && data.type in ['normal', 'ultra']
+        && data.messages is list
+        && data.messages.size() <= 500;
+    }
+
+    function isValidHistory(data) {
+      return data.userId == request.auth.uid 
+        && data.type is string
+        && data.content is string
+        && data.content.size() <= 100000;
+    }
+
+    function isValidAdConfig(data) {
+      return data.active is bool
+        && data.title is string && data.title.size() <= 256
+        && data.description is string && data.description.size() <= 1024
+        && data.link is string && data.link.size() <= 1024
+        && data.imageUrl is string && data.imageUrl.size() <= 1024;
+    }
+
+    function isValidAppConfig(data) {
+      return data.officialPhone is string && data.officialPhone.size() <= 64
+        && data.officialWhatsApp is string && data.officialWhatsApp.size() <= 64
+        && data.officialTelegram is string && data.officialTelegram.size() <= 128;
+    }
+
+    // --- Collection Matching Rules ---
+
+    match /users/{userId} {
+      allow get: if isOwner(userId) || isAdmin();
+      allow list: if isAdmin();
+      allow create: if isOwner(userId) && isValidUser(incoming()) 
+        && incoming().createdAt == request.time;
+      allow update: if (isOwner(userId) && isValidUser(incoming())
+          && incoming().updatedAt == request.time
+          && incoming().createdAt == existing().createdAt
+          && incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'phone', 'email', 'updatedAt']))
+        || isAdmin();
+    }
+
+    match /chats/{chatId} {
+      allow get, delete: if isSignedIn() && existing().userId == request.auth.uid;
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() && isValidChat(incoming())
+        && incoming().createdAt == request.time;
+      allow update: if isSignedIn() && existing().userId == request.auth.uid
+        && isValidChat(incoming())
+        && incoming().updatedAt == request.time
+        && (incoming().diff(existing()).affectedKeys().hasOnly(['messages', 'updatedAt', 'title']));
+    }
+
+    match /history/{historyId} {
+      allow get, delete: if isSignedIn() && existing().userId == request.auth.uid;
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() && isValidHistory(incoming())
+        && incoming().timestamp == request.time.toMillis();
+      allow update: if isSignedIn() && existing().userId == request.auth.uid && isValidHistory(incoming());
+    }
+
+    match /config/{configId} {
+      allow get, list: if true; 
+      allow write: if isAdmin() && (
+        (configId == 'ads' && isValidAdConfig(incoming())) ||
+        (configId == 'app' && isValidAppConfig(incoming()))
+      );
+    }
+  }
+}

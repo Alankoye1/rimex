@@ -1,0 +1,513 @@
+Structuring System Data Requirements
+an Entity-Delationship (E-R) Diagram
+ERD
+Ministry of Higher Education & Scientific Research Erbil Polytechnic University
+Technical College of Computer and Informatics Engineering
+Information System Engineering Dept.
+3 rd Stage ISD
+The Lecturer :
+Assist. Lect. Mrs. Najat Yohana DenhaISD - Assist. Lect. NAjat Yohana Danha
+
+-- 1 of 36 --
+
+Assist.Lect. Mrs. Najat Y. Danah 2
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 2 of 36 --
+
+Learning Objectives
+❑ In last previous tow lectures we learned how to model and analyze the flow of data (data in
+motion) between manual or automated steps and how to show data stores (data at rest) in a
+data-flow diagram.
+❑ Data-flow diagrams show how, where, and when data are used or changed in an information
+system, but they do not show the definition, structure, and relationships within the data.
+❑ Data modeling, the subject of this Lecture , develops this missing, and crucial, piece of the
+description of an information system.
+❑ Explain the role of conceptual data modeling in the overall analysis and design of an
+information system.
+❑ Briefly define each of the following key data modeling terms:
+➢ An Entity, Entity Type & Entity Instances, attribute,
+➢ Candidate Keys and Identifiers
+➢ multivalued attribute, Optional attribute, .. ,etc.
+➢ relationship, degree, Distinguish between unary, binary, and ternary relationships and give
+an example for each one .
+❑ Cardinality.
+❑ Introduce to Entity-Relationship (E-R) Modeling
+❑ Draw an entity-relationship (E-R) diagram to represent common business situations.
+Assist.Lect. Mrs. Najat Y. Danah 3
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 3 of 36 --
+
+Conceptual Data Modeling
+• Conceptual data modeling is only one kind of data modeling and database design activity done
+throughout the systems development process. Figure 7-2 shows the different kinds of data modeling and
+database design that occur during the systems development life cycle.
+Assist.Lect. Mrs. Najat Y. Danah 4
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 4 of 36 --
+
+Conceptual data model
+❑ Conceptual data model : A detailed model that shows the overall
+structure of organizational data while being independent of any database
+management system or other implementation considerations.
+❑ The conceptual data-modeling methods we discuss in this Lecture are
+suitable for various tasks in the planning and analysis phases. These
+phases of the SDLC address issues of system scope, general
+requirements, and content.
+❑ Most organizations today do conceptual data modeling using entity-
+relationship modeling, which uses a special notation of rectangles,
+diamonds, and lines to represent as much meaning about data as possible.
+❑ Thus, the primary deliverable from the conceptual data-modeling step
+within the analysis phase is an entity-relationship (E-R) diagram.
+Assist.Lect. Mrs. Najat Y. Danah 5
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 5 of 36 --
+
+The Conceptual Data Modeling Process
+1) Develop a data model for the current
+system.
+2) Develop a new conceptual data model that
+includes all requirements of the new
+system.
+3) In the design stage, the conceptual data
+model is translated into a physical design.
+4) Project repository links all design and data
+modeling steps performed during SDLC.
+Assist.Lect. Mrs. Najat Y. Danah 6
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 6 of 36 --
+
+Deliverables and Outcome
+◼ Primary deliverable is an entity-relationship (E-R) diagram or class diagram.
+◼ As many as 4 E-R or class diagrams are produced and analyzed:
+ E-R diagram that covers data needed in the project’s application.
+ E-R diagram for the application being replaced.
+ E-R diagram for the whole database from which the new application’s data are
+extracted.
+ E-R diagram for the whole database from which data for the application system
+being replaced is drawn.
+◼ Second deliverable is a set of entries about data objects to be
+stored in repository or project dictionary.
+ Repository links data, process, and logic models of an information system.
+ Data elements included in the DFD must appear in the data model and vice versa.
+ Each data store in a process model must relate to business objects represented in
+the data model.
+Assist.Lect. Mrs. Najat Y. Danah 7
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 7 of 36 --
+
+Introduction to Entity-Relationship (E-R) Modeling
+◼ Entity-Relationship data model (E-R model):
+a detailed, logical representation of the entities,
+associations and data elements for an organization or
+business area.
+◼ Entity-relationship diagram (E-R diagram):
+a graphical representation of an E-R model.
+◼ The E-R model is expressed in terms of:
+ Data entities in the business environment.
+ Relationships or associations among those entities.
+ Attributes or properties of both the entities and their
+relationships.
+Assist.Lect. Mrs. Najat Y. Danah 8
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 8 of 36 --
+
+A sample E-R diagram appears in Figure 7-3A.This figure shows the major categories of data
+(rectangles in the diagram) and the business relationships between them (lines connecting rectangles).
+For example :- it describes that, for the business represented, a SUPPLIER sometimes supplies
+ITEMs to the company, and an ITEM is always supplied by one to four SUPPLIERS. The fact that a supplier only
+sometimes supplies items implies that the business wants to keep track of some suppliers without designating what
+they can supply. This diagram includes two names on each line, giving you explicit language to read a relationship
+in each direction. For simplicity, we will not typically include two names on lines in E-R diagrams in this lecture;
+however, many organizations use this standard.
+Assist.Lect. Mrs. Najat Y. Danah 9
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 9 of 36 --
+
+Entity
+• Entity: a person, place, object, event or concept in the user environment
+about which data is to be maintained.
+• An entity has its own identity, which distinguishes it from every other entity.
+• Some examples of entities follow:
+Person: EMPLOYEE, STUDENT, PATIENT
+Place: STATE, REGION, COUNTRY, BRANCH
+Object: MACHINE, BUILDING, AUTOMOBILE, PRODUCT
+Event: SALE, REGISTRATION, RENEWAL
+Concept: ACCOUNT, COURSE, WORK CENTER
+• Note :-
+• Each entity in the diagram represent a table in the DataBase. ,so, look to
+the entity as a table of rows and columns.
+• We can say entity means table in DB.
+•
+Assist.Lect. Mrs. Najat Y. Danah 10
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 10 of 36 --
+
+An Entity Type
+◼ An entity type is a collection of entities that share common properties or
+characteristics. Each entity type in an E-R model is given a name. Because the
+name represents a set of entities, it is singular.
+◼ An entity type name should be:
+	
+A singular noun;
+	
+Descriptive and specific to the organization;
+	
+Concise.
+◼ Also, because an entity is an object, we use a simple noun to name an entity type.
+We use capital letters in naming an entity type,
+Assist.Lect. Mrs. Najat Y. Danah 11
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 11 of 36 --
+
+◼ in an E-R diagram, the name is placed inside a rectangle representing the entity, for
+example:STUDENT.
+– The following diagram shows the representation for
+a STUDENT entity type using E-R notation:
+– The equivalent representation using Microsoft Visio is the following :
+• In the Visio notation, the primary key is listed immediately below the entity name with the notation PK, and the
+primary key is underlined.
+• All required attributes (that is, an instance of STUDENT must
+have values for Student_ID and Name) are in bold.
+•
+Assist.Lect. Mrs. Najat Y. Danah 12
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 12 of 36 --
+
+Types of Entity and there shapes
+◼ Strong and weak entities
+• A
+strong entity has a primary key,
+meaning that it can be uniquely identified
+by its attributes alone.
+• A
+weak entity is an entity that can't be
+uniquely identified by its attributes alone.
+It is existence-dependent on its parent
+entity. It must use a foreign key in
+conjunction with its attributes to create a
+primary key. Typically, the foreign key is
+the primary key of a strong entity that the
+weak entity is related to.
+◼ The relationship between two strong
+entities is simply called a
+relationship.
+◼ The relationship between a strong entity
+and a weak entity is called a
+strong
+relationship.
+Assist.Lect. Mrs. Najat Y. Danah 13
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 13 of 36 --
+
+◼ You need to recognize an important distinction between entity types and entity instances.
+◼ An entity instance (or instance) is a single occurrence of an entity type. An entity type is described just once
+in a data model, whereas many instances of that entity type may be represented by data stored in the
+database. For example, most organizations have one EMPLOYEE entity type, but hundreds (or even
+thousands) of instances of this entity type may be stored in the database.
+◼ A common mistake made in learning to draw E-R diagrams, especially if you already know how to do data-
+flow diagramming, is to confuse data entities with sources/sinks, system outputs, or system users, and to
+confuse relationships with data flows.
+ A simple rule to avoid such confusion is that a true data entity will have many possible instances, each
+with a distinguishing characteristic, as well as one or more other descriptive pieces of data.
+◼ Consider the following entity types that might be associated with a church expense system:
+◼ In this situation, the church treasurer manages accounts and records expense transactions against each
+account. However, do we need to keep track of data about the treasurer and her supervision of accounts as
+part of this accounting system?
+◼ The treasurer is the person entering data about accounts and expenses and making inquiries about account
+balances and expense transactions by category. Because the system includes only one treasurer,
+TREASURER data do not need to be kept. On the other hand, if each account has an account manager (e.g.,
+a church committee chair) who is responsible for assigned accounts, then we may wish to have a
+ACCOUNT MANAGER entity type, with pertinent attributes as well as relationships to other entity types.
+Assist.Lect. Mrs. Najat Y. Danah 14
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 14 of 36 --
+
+Attributes
+◼ Each entity type has a set of attributes associated with it.
+◼ An attribute is a property or characteristic of an entity that is of interest to the organization.
+◼ An attribute name is a
+noun and should be
+unique.
+◼ Attributes give us additional information about the entity. It describes the property of an entity.
+In the ER model, we represent the Attributes as an Eclipse. For example, If Employee is an
+entity, employee id, contact number, name, date of joining, etc can be the attributes of an
+employee.
+◼ An attribute provides the characteristics of the entity. In other words, an attribute describes the
+property of an entity. Each entity consists of one or more attributes.
+◼ Note :- relationships may also have attributes.
+◼ Following are some typical entity types
+and associated attributes:
+• STUDENT: Student_ID, Student_Name, Address, Phone_Number
+• AUTOMOBILE: Vehicle_ID, Color, Weight, Horsepower
+• EMPLOYEE: Employee_ID, Employee_Name, Address, Skill
+◼ We use nouns with an initial capital letter followed by lowercase letters in naming an attribute.
+In E-R diagrams, we represent an attribute by placing its name inside the rectangle that
+represents the associated entity.
+◼ In many E-R drawing tools, such as Microsoft Visio, attributes are listed within the entity
+rectangle under the entity name.
+Assist.Lect. Mrs. Najat Y. Danah 15
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 15 of 36 --
+
+Database Attributes Types
+There are many different types of attributes in DBMS.
+1. Simple Attributes
+ Simple Attributes are independent attributes that cannot be classified further. In
+other words, it is also known as atomic attributes.
+ For example, a Student is an entity that consists of attributes Roll No, Age, Class.
+Here, we cannot divide the Roll no attribute into sub-attributes. Therefore, if we
+cannot divide the attribute further then it is a Simple Attribute.
+2. Composite Attribute
+ When it is possible to divide the attributes into different components then that
+attribute is called a Composite Attribute. We divide Composite Attribute into sub-
+parts that form simple attributes.
+ an attribute that has meaningful component parts
+ For example, If Name is an attribute for Student entity. We can divide the Name
+attribute into first name, middle name, last name attributes. These sub-attributes
+that are classified from the composite Attribute works as Simple Attributes.
+Assist.Lect. Mrs. Najat Y. Danah 16
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 16 of 36 --
+
+3. Single Valued Attributes
+ Attributes stores values that are used to describe the entity. The attributes which
+are able to store only one value are known as Single Valued Attributes. These
+attributes cannot store more than one value.
+ For example, The attributes of an Employee entity are Employee id, DOB, Gender.
+An employee has only one employee id which is unique and it also has a single date
+of birth. So these attributes can store only one value in it. Therefore, it is known as
+Single Valued Attributes.
+4. Multi-Valued Attributes
+4. The attributes which are able to store more than one value are known as Multi-
+Valued Attributes.(i.e. an attribute that may take on more than one value for each
+entity instance).
+❑ For example, let’s assume Email id and Contact No are the attributes of the
+Employee entity. An employee can provide more than one email id and contact no.
+Therefore multiple values can be stored in Multi-Valued Attributes.
+5. Derived Attributes
+ an attribute whose value can be computed from related attribute
+values.
+ For example, We can calculate the age from the date of birth value. Therefore Age
+attribute can be derived from the DOB attribute.
+Assist.Lect. Mrs. Najat Y. Danah 17
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 17 of 36 --
+
+Other Attribute Types
+◼ Repeating group attribute: a set or two or more multivalued attributes that
+are logically related.
+◼ Required attribute: an attribute that must have a value for every entity
+instance.
+◼ Optional attribute: an attribute that may not have a value for every entity
+instance.
+Assist.Lect. Mrs. Najat Y. Danah 18
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 18 of 36 --
+
+ .
+Assist.Lect. Mrs. Najat Y. Danah 19
+Primary Key (PK)
+A primary key is used to ensure data in the specific column is unique. It is a column cannot have
+NULL values. It is either an existing table column or a column that is specifically generated by the
+database according to a defined sequence.Example: - customer_ID is a PK in Customer table. In next
+page example.also for relation STUDENT STUD_NO can be chosen as the primary key .
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 19 of 36 --
+
+Foreign key ( FK) :- is just like PK ,but, it is located in a foreign place.
+◼ Foreign key don’t have to be unique.(i.e. they can be repeated in a table).
+◼ Thay can be multiple foreign keys in one entity.
+◼ Foreign Key: - is a column or group of columns in a relational database table that provides a link
+between data in two tables. It is a column (or columns) that references a column (most often the
+primary key) of another table. Example: STUD_NO in STUDENT_COURSE is a foreign key to STUD_NO in
+STUDENT relation. Customer_ID and Product_ID are FK in Order table .
+Assist.Lect. Mrs. Najat Y. Danah 20
+PK
+FK
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 20 of 36 --
+
+Relationships
+◼ A relationship is an association between
+the instances of one or more entity types
+that are of interest to the organization.
+◼ Relationships are the glue that hold
+together the various components of an E-R
+model, relationships are labeled with verb
+phrases. A relationship name is a
+verb
+phrase and
+avoid vague names.
+◼ Types:-
+◼ For example, a training department in a company
+is interested in tracking which training courses
+each of its employees has completed. This
+information leads to a relationship (called
+Completes) between the EMPLOYEE and
+COURSE entity types that we diagram as follows:
+Assist.Lect. Mrs. Najat Y. Danah 21
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 21 of 36 --
+
+Degree
+◼ Degree: the number of entity types that participate in a relationship.
+ Unary relationship: a relationship between the instances of one entity type.
+◼ Also called a
+recursive relationship.
+ Binary relationship: a relationship between instances of two entity types.
+◼ This is the most common type of relationship encountered in data
+modeling.
+ Ternary relationship: a simultaneous relationship among instances of three
+entity types.
+Assist.Lect. Mrs. Najat Y. Danah 22
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 22 of 36 --
+
+Degree
+Assist.Lect. Mrs. Najat Y. Danah 23
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 23 of 36 --
+
+Cardinalities
+◼ Cardinality: the number of instances of entity B that can (or
+must) be associated with each instance of entity A.(i.e.
+Cardinality specifies how many instances of an entity relate
+to one instance of another entity.)
+◼ Minimum Cardinality
+◼ The minimum number of instances of entity B that
+may be associated with each instance of entity A.
+◼ Maximum Cardinality
+◼ The maximum number of instances of entity B that
+may be associated with each instance of entity A.
+Assist.Lect. Mrs. Najat Y. Danah 24
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 24 of 36 --
+
+Minimum & Maximum cardinality
+❑ Relationships are named and
+classified by
+their cardinality (i.e. number of
+elements of the set).
+❑ Symbols which appears closes to the
+entity is Maximum cardinality and
+the other one is Minimum
+cardinality.
+❑ Entity relation, shows end of
+the relationship line as follows:
+Assist.Lect. Mrs. Najat Y. Danah 25
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 25 of 36 --
+
+Assist.Lect. Mrs. Najat Y. Danah 26
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 26 of 36 --
+
+Ordinality
+◼ Ordinality is also closely linked to cardinality. While cardinality
+specifies the occurrences of a relationship, ordinality describes the
+relationship as either mandatory or optional.
+◼ Ordinality Specifies whether an instance must exist (i.e. mandatory )
+or an instance can be absent (i.e. optional) in the relationship.
+.
+Assist.Lect. Mrs. Najat Y. Danah 28
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 27 of 36 --
+
+Crow’s Foot notation
+Assist.Lect. Mrs. Najat Y. Danah 29
+- There are many different ways to represent the relationships between entities.
+- For this class, please use crow’s foot notation.
+- Crow’s foot notation consists of a pair of icons at each end of a line.
+-The “outer” icon represents the “maximum” value, and the “inner” icon represents
+the “minimum” value:
+-Example:-
+- Thus indicates that a specific garden instance can have zero or more plant species
+in it (because some gardens might be “brand new” and consist only of dirt). -
+However, every instance of a plant species (for example, Digitalis Purpurea) is
+associated with at least one garden (i.e. we don’t create a plant species in the database
+unless there’s a garden instance that uses it).
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 28 of 36 --
+
+Assist.Lect. Mrs. Najat Y. Danah 30
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 29 of 36 --
+
+Tips for designing the diagram
+1) Identify all the entities you need. Draw all of them in
+the diagram.
+2) Determine which entities have relationships with each
+other, and connect them. (Not all entities will have
+relationships. Some may have multiple relationships.)
+3) Each entity should appear only once in the diagram.
+4) Look over the relationships you've drawn. Are there
+any redundant relationships?
+Are there any that are unnecessary or missing?
+Assist.Lect. Mrs. Najat Y. Danah 31
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 30 of 36 --
+
+Example
+Data-flow diagrams show how, where, and when data are used or changed in an information
+system, but they do not show the definition, structure, and relationships within the data.
+Assist.Lect. Mrs. Najat Y. Danah 32
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 31 of 36 --
+
+Assist.Lect. Mrs. Najat Y. Danah 33
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 32 of 36 --
+
+Assist.Lect. Mrs. Najat Y. Danah 34
+The equivalent representation using Microsoft Visio notation
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 33 of 36 --
+
+Shapes
+Assist.Lect. Mrs. Najat Y. Danah 35
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 34 of 36 --
+
+Assist.Lect. Mrs. Najat Y. Danah 36
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 35 of 36 --
+
+Assist.Lect. Mrs. Najat Y. Danah 37
+ISD - Assist. Lect. NAjat Yohana Danha
+
+-- 36 of 36 --
+

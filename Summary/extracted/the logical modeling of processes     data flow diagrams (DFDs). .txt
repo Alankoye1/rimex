@@ -1,0 +1,241 @@
+the logical modeling of processes
+&
+Data Flow Diagrams (DFDs).
+Modern Systems
+Analysis
+and Design
+I.S.E. 	dept.
+Third Stage
+The Lecturer
+. Assist. Lect
+Najat Yohana Denha
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 1 of 22 --
+
+Learning Objectives
+ Understand the logical modeling of processes by
+studying examples of data flow diagrams (DFDs).
+ Draw data flow diagrams following specific rules and
+guidelines that lead to accurate and well-structured
+process models.
+ Decompose data flow diagrams into lower-level
+diagrams.
+ Balance higher-level and lower-level data flow diagrams.
+ Explain the differences among four types of DFDs:
+current physical, current logical, new physical, and new
+logical.
+ Use data flow diagrams as a tool to support the analysis
+of information systems.
+ Discuss process modeling for electronic commerce
+applications.
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 2 of 22 --
+
+Process Modeling
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 3 of 22 --
+
+Data Flow Diagramming Mechanics
+ Represent both physical and logical information systems.
+ Only four symbols are used.
+ Useful for depicting purely logical information flows.
+ DFDs that detail physical systems differ from system
+flowcharts which depict details of physical computing
+equipment.
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 4 of 22 --
+
+Definitions and Symbols
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 5 of 22 --
+
+Definitions and Symbols
+ Process: work or actions performed on data (inside the
+.(system
+ .(Data store: data at rest (inside the system
+ Source/sink: external entity that is origin or destination
+.(of data (outside the system
+ .Data flow: arrows depicting movement of dataISD - Assist. Lect. Najat Yohana Danha
+
+-- 6 of 22 --
+
+Context Diagram
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 7 of 22 --
+
+Developing DFDs (Cont.)
+ Level-0 diagram is a
+data flow diagram that
+represents a system’s
+major processes, data
+flows, and data stores
+at a high level of detail.
+ Processes are labeled
+1.0, 2.0, etc. These will
+be decomposed into
+more primitive (lower-
+level) DFDs.
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 8 of 22 --
+
+Level-0 Diagram
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 9 of 22 --
+
+Data Flow Diagramming Rules
+ :There are two DFD guidelines that apply
+
+The inputs to a process are different from the outputs
+of that process.
+ Processes purpose is to transform inputs into outputs.
+
+Objects on a DFD have unique names.
+ Every process has a unique name.
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 10 of 22 --
+
+Data Flow Diagramming Rules
+(Cont.)
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 11 of 22 --
+
+Decomposition of DFDs
+ Functional decomposition is an iterative
+process of breaking a system description down
+into finer and finer detail.
+ Creates a set of charts in which one process on a
+given chart is explained in greater detail on another
+.chart
+Continues until no subprocess can logically be broken
+.down any furtherISD - Assist. Lect. Najat Yohana Danha
+
+-- 12 of 22 --
+
+Decomposition of DFDs (Cont.)
+ .
+Primitive DFD is the lowest level of a DFD
+ Level-1 diagram results from decomposition of Level-0
+diagram.
+ Level-n diagram is a DFD diagram that is the result of a
+n nested decompositions from a process on a level-0
+diagram.ISD - Assist. Lect. Najat Yohana Danha
+
+-- 13 of 22 --
+
+Level-1 DFD
+Level-1 DFD shows
+the sub-processes
+of one of the
+processes in the
+Level-0 DFD.
+This is a Level-1
+DFD for Process
+4.0.
+Processes are labeled 4.1, 4.2, etc. These can be further
+decomposed in more primitive (lower-level) DFDs if necessary.
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 14 of 22 --
+
+Level-
+n DFD
+Level-
+n DFD shows
+the sub-processes
+of one of the
+processes in the
+Level
+n-1 DFD.
+This is a Level-2
+DFD for Process
+4.3.
+Processes are labeled 4.3.1, 4.3.2, etc. If this is the
+lowest level of the hierarchy, it is called a
+primitive DFD.
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 15 of 22 --
+
+Using DFDs as Analysis Tools
+ Gap Analysis is the process of discovering
+discrepancies between two or more sets of data flow
+diagrams or discrepancies within a single DFD.
+ Inefficiencies in a system can often be identified
+.through DFDs
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 16 of 22 --
+
+Using DFDs in BPR
+Figure 7-17 IBM Credit Corporation’s primary work process before BPR
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 17 of 22 --
+
+ Process modeling for Pine Valley Furniture’s Webstore
+ Completed JAD session.
+ Began translating the Webstore system structure into data .flow diagrams
+ .Identified six high-level processes
+Process Modeling using Data Flow Diagrams and Balancing DFDs
+Conservation Principle: conserve inputs and outputs to a process at the next
+level of decomposition
+Balancing: conservation of inputs and outputs to a data flow diagram process when that
+process is decomposed to a lower level
+Banced means :
+Number of inputs to lower level DFD equals number of inputs to associated
+process of higher-level DFD
+Number of outputs to lower level DFD equals number of outputs to associated process of
+higher-level DFD
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 18 of 22 --
+
+Balancing Data flow splitting is when a composite data flow at a
+higher level is split and .different parts go to different processes in the
+lower level DFD
+The DFD remains balanced because the same data is involved, but.
+split into two parts
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 19 of 22 --
+
+Electronic Commerce Application: Process Modeling using Data Flow
+Began translating the Webstore system structure into data flow diagrams Diagrams
+Figure 7-19
+Level-0 data flow diagram for the WebStore
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 20 of 22 --
+
+Summary
+ In this chapter you learned how to:
+ Understand logical process modeling via
+data flow diagrams (DFDs).
+ Draw data flow diagrams of well structured
+process models.
+ Decompose data flow diagrams into lower-
+level diagrams.ISD - Assist. Lect. Najat Yohana Danha
+
+-- 21 of 22 --
+
+Summary (Cont.)
+ Balance high-level and low-level data flow
+diagrams.
+ Explain differences between current
+physical, current logical, new physical, and
+new logical data flow diagrams.
+ Use data flow diagrams for analyzing
+information systems.ISD - Assist. Lect. Najat Yohana Danha
+
+-- 22 of 22 --
+

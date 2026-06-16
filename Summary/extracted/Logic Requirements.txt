@@ -1,0 +1,209 @@
+Logic Requirements
+Structured English
+&
+Decision Tables
+Modern Systems
+Analysis and Design
+I.S.E. 	dept.
+Third Stage
+The Lecturer
+Assist. Lect.
+Mrs. Najat Yohana Denha
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 1 of 19 --
+
+2	Chapter 8
+Learning Objectives
+ Use Structured English as a tool for representing steps
+.in logical processes in data flow diagrams
+ Use decision tables to represent the logic of choice in
+.conditional statements
+ Select among Structured English and decision tables for
+representing processing logic.
+ Understand how logic modeling techniques apply to the
+development of electronic commerce applications.
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 2 of 19 --
+
+3	Chapter 8
+Logic Modeling
+ Data flow diagrams do not show the logic inside the
+processes
+ Logic modeling involves representing internal structure
+and functionality of processes depicted on a DFD
+ Logic modeling can also be used to show when processes
+on a DFD occur
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 3 of 19 --
+
+Modeling a System’s Logic
+4	Chapter 8
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 4 of 19 --
+
+5	Chapter 8
+Deliverables and Outcomes
+ Structured English representation of
+process logic.
+ Decision Tables representation.
+ Sequence diagram.
+ Activity diagram.
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 5 of 19 --
+
+6	Chapter 8
+Modeling Logic with Structured
+English
+ Structured English: modified form of
+English language used to specify the logic
+of information system processes.
+ No single standard.
+ Typically relies on action verbs and noun
+phrases and contains no adjectives or No
+specific standards.ISD - Assist. Lect. Najat Yohana Danha
+
+-- 6 of 19 --
+
+Modeling Logic with Structured
+English (Cont.)
+7	Chapter 8
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 7 of 19 --
+
+Modeling Logic with Structured
+English (Cont.)
+8	Chapter 8
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 8 of 19 --
+
+9	Chapter 8
+Modeling Logic with Decision Tables
+ Decision table: a matrix representation of
+the logic of a decision which specifies the
+possible conditions for the decision and
+the resulting actions.
+ .Best used for complicated decision logic
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 9 of 19 --
+
+10	Chapter 8
+Modeling Logic with Decision
+Tables (Cont.)
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 10 of 19 --
+
+11	Chapter 8
+Modeling Logic
+with Decision Tables
+ Condition stubs: that part of a decision table that lists
+the conditions relevant to the decision.
+ Action stubs: that part of a decision table that lists the
+actions that result for a given set of conditions.
+ Rules: that part of a decision table that specifies which
+actions are to be followed for a given set of condition.
+ Indifferent condition: in a decision table, a condition
+whose value does not affect which actions are taken for
+two or more rules.ISD - Assist. Lect. Najat Yohana Danha
+
+-- 11 of 19 --
+
+12	Chapter 8
+ Procedure for Creating Decision Tables
+
+
+
+
+
+Name the condition and the values that each
+condition can assume.
+Name all possible actions that can occur.
+List all possible rules.
+Define the actions for each rule.
+Simplify the table.	ISD - Assist. Lect. Najat Yohana Danha
+
+-- 12 of 19 --
+
+13	Chapter 8
+Modeling Logic with Decision
+Tables (Cont.)
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 13 of 19 --
+
+14	Chapter 8
+?? Deciding Among ??
+Structured English and Decision Tables
+Criteria Structured
+English
+Decision
+Tables
+Determining
+Conditions and
+Actions
+Second Best Third Best
+Transforming
+Conditions and
+Actions into
+Sequence
+Best Third Best
+Checking
+Consistency and
+Completeness
+Third Best BestISD - Assist. Lect. Najat Yohana Danha
+
+-- 14 of 19 --
+
+Electronic Commerce Application:
+Logic Modeling
+ Pine Valley Furniture development
+methodology dictated that the logic within
+each unique processes be represented.
+ Structured English was chosen for
+.modeling the logic
+15	Chapter 8
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 15 of 19 --
+
+Electronic Commerce Application: Logic Modeling
+16	Chapter 8 Figure 8-8 Level-0 DFD for the WebStore system
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 16 of 19 --
+
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 17 of 19 --
+
+Electronic Commerce Application:
+Logic Modeling (Cont.)
+18	Chapter 8
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 18 of 19 --
+
+19	Chapter 8
+Summary
+ In this chapter you learned how to:
+ Use Structured English as a tool for representing
+steps in logical processes in data flow diagrams.
+ Use decision tables to represent the logic of
+choice in conditional statements.
+ Select among Structured English and decision
+tables for representing processing logic.
+ Understand how logic modeling techniques apply
+to the development of electronic commerce
+applications.
+ISD - Assist. Lect. Najat Yohana Danha
+
+-- 19 of 19 --
+

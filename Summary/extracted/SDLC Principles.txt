@@ -1,0 +1,225 @@
+Part#1
+The SystemsDevelopmentEnvironment
+SDLC
+Third Stage \ 6th Semester
+InformationSystemsDesign (ISD)
+Lect. :-
+assist.Lectr. Mrs. Najat Yohana Danha
+Ministry of Higher Education & Scientific Research
+Erbil Polytechnic University
+Technical College of Computer and Informatics Engineering
+Information Systems Engineering Dep.
+ISD-Assist. Lect. Najat Yohana Danha
+
+-- 1 of 16 --
+
+OutLine
+1. Information Systems Analysis and Design\
+2. Systems Analyst
+3. Types of Information Systems
+4. Systems Development Life Cycle (SDLC)
+5. Alternative Approaches to Development :-
+2
+ISD-Assist. Lect. Najat Yohana Danha
+
+-- 2 of 16 --
+
+◼ Information Systems Analysis and Design
+ Complex organizational process.
+ Used to develop and maintain computer-based information systems.
+ Used by a team of business and systems professionals.
+◼ Application Software
+ Computer software designed to support organizational functions or
+processes.
+◼ Systems Analyst
+ Organizational role most responsible for analysis and design of
+information systems.
+❑ Systems Analyst Characteristics for Successful Requirements
+Determination
+ Impertinence
+ Impartiality
+ Relaxing constraints
+ Attention to details
+ Reframing
+3
+ISD-Assist. Lect. Najat Yohana Danha
+
+-- 3 of 16 --
+
+Types of Information Systems
+Following Figure illustrates this conceptual classification of information systems applications. Information systems
+are categorized this way to spotlight the major roles each plays in the operations and management of a business.
+4
+ISD-Assist. Lect. Najat Yohana Danha
+
+-- 4 of 16 --
+
+Types of Information Systems
+• Conceptually, the applications of information systems that are implemented in
+today’s business world can be classified in several different ways. For example,
+several types of information systems can be classified as :-
+A.Operations Information Systems :-
+1. Transaction Processing Systems.
+2. Process Control Systems
+3. Enterprise Collaboration Systems
+B. Management Information Systems:-
+1. Management Information Systems(MIS).
+2. Decision Support Systems(DSS).
+3. Executive Information Systems(EIS).
+C. Other Categories of Information Systems:-
+1. Expert systems.
+2. Knowledge management systems.
+3. Strategic information systems.
+4. Functional business systems.
+5
+ISD-Assist. Lect. Najat Yohana Danha
+
+-- 5 of 16 --
+
+C. Other Categories of Information Systems
+1. Expert systems. Knowledge-based systems that provide expert advice
+and act as expert consultants to users. Examples: credit application
+advisor, process monitor, and diagnostic maintenance systems.
+2. Knowledge management systems. Knowledge-based systems
+that support the creation, organization, and dissemination of business
+knowledge within the enterprise. Examples: intranet access to best
+business practices, sales proposal strategies, and customer problem
+resolution systems.
+3. Strategic information systems. Support operations or
+management processes that provide a firm with strategic products,
+services, and capabilities for competitive advantage. Examples: online
+stock trading, shipment tracking, and e-commerce Web systems.
+4. Functional business systems. Support a variety of operational
+and managerial applications of the basic business functions of a company.
+Examples: information systems that support applications in accounting,
+finance, marketing, operations management, and human resource
+management.
+6
+ISD-Assist. Lect. Najat Yohana Danha
+
+-- 6 of 16 --
+
+Systems Development Life Cycle (SDLC)
+◼ Traditional methodology used to develop, maintain,
+and replace information systems.
+◼ Phases in SDLC:-
+ Planning
+ Analysis
+ Design
+ Implementation
+ Maintenance
+7
+ISD-Assist. Lect. Najat Yohana Danha
+
+-- 7 of 16 --
+
+Standard SDLC
+8
+ISD-Assist. Lect. Najat Yohana Danha
+
+-- 8 of 16 --
+
+◼ Planning – an organization’s total information system needs
+are identified, analyzed, prioritized, and arranged.
+◼ Analysis – system requirements are studied and structured.
+◼ Design – a description of the recommended solution is
+converted into logical and then physical system specifications.
+◼ Logical design – all functional features of the system chosen for
+development in analysis are described independently of any computer
+platform.
+◼ Physical design – the logical specifications of the system from logical
+design are transformed into the technology-specific details from which
+all programming and system construction can be accomplished.
+◼ Implementation – the information system is coded, tested,
+installed and supported in the organization.
+◼ Maintenance – an information system is systematically
+repaired and improved.
+9
+ISD-Assist. Lect. Najat Yohana Danha
+
+-- 9 of 16 --
+
+Products of the SDLC Phases
+Maintenance
+10
+ISD-Assist. Lect. Najat Yohana Danha
+
+-- 10 of 16 --
+
+Alternative Approaches to Development :-
+Prototyping, computer-aided software engineering (CASE) tools, joint
+application design (JAD), rapid application development (RAD), participatory
+design (PD), and the use of Agile Methodologies represent different
+approaches that streamline and improve the systems analysis and design
+process from different perspectives.
+◼ The Waterfall model is the earliest SDLC approach that was used for software
+development.
+◼ Prototyping
+◼ Computer-Aided Software Engineering (CASE) Tools
+◼ Joint Application Design (JAD)
+◼ Rapid Application Development (RAD)
+◼ Agile Methodologies
+◼ V-Model
+◼ eXtreme Programming
+◼ Object-Oriented Analysis and Design (OOAD)
+11
+ISD-Assist. Lect. Najat Yohana Danha
+
+-- 11 of 16 --
+
+Traditional Waterfall SDLC
+The Waterfall Model was the first Process Model to be
+introduced. It is also referred to as a linear-sequential life
+cycle model. One phase begins when another completes,
+little backtracking and looping
+◼ System requirements
+“locked in” after being
+determined (can't change).
+◼ Limited user involvement
+(only in requirements phase).
+◼ Too much focus on milestone
+deadlines of SDLC phases to
+the detriment of sound
+development practices.
+Problems with Waterfall
+Approach
+12
+ISD-Assist. Lect. Najat Yohana Danha
+
+-- 12 of 16 --
+
+Joint Application Design (JAD)
+◼ Structured process involving users,
+analysts, and managers.
+◼ Several-day intensive workgroup sessions.
+◼ Purpose: to specify or review system
+requirements.
+17
+ISD-Assist. Lect. Najat Yohana Danha
+
+-- 13 of 16 --
+
+Rapid Application Development
+(RAD)
+◼ Methodology to radically decrease
+design and implementation time.
+◼ Involves: extensive user involvement,
+prototyping, JAD sessions, integrated
+CASE tools, and code generators.
+18
+ISD-Assist. Lect. Najat Yohana Danha
+
+-- 14 of 16 --
+
+Rapid Application
+Development (RAD) (Cont.)
+19
+ISD-Assist. Lect. Najat Yohana Danha
+
+-- 15 of 16 --
+
+23
+ISD-Assist. Lect. Najat Yohana Danha
+
+-- 16 of 16 --
+

@@ -1,0 +1,135 @@
+Modern Systems
+Analysis
+and Design
+.I.S.E. dept
+Third Stage
+The Lecturer
+Assist. Lect.
+Mrs. Najat Yohana Denha
+The Origins of
+Software
+Lect. # 2
+
+-- 1 of 12 --
+
+Learning Objectives
+Chapter 2 2
+ Explain outsourcing.
+ Describe six different sources of
+software.
+ Explain reuse and its role in software
+development.
+
+-- 2 of 12 --
+
+Introduction
+Chapter 2 3
+ There are various sources of software for
+organizations.
+ There are criteria to evaluate software
+from different sources.
+ The impact of reuse on software
+development.
+
+-- 3 of 12 --
+
+Systems Acquisition: Outsourcing
+Chapter 2 4
+ Outsourcing: Turning over
+responsibility of some or all of an
+organization's information systems
+applications and operations to an
+outside firm.
+ Outsourcing Examples
+A company that runs payroll
+applications for clients.
+A company that runs your
+applications at your site.
+
+-- 4 of 12 --
+
+Chapter 2 5
+ Reasons to outsource
+Cost-effective.
+Take advantage of economies of
+scale.
+Free up internal resources.
+Reduce time to market.
+Increase process efficiencies.
+System development is a non-core
+activity for the organization.
+
+-- 5 of 12 --
+
+Sources of Software
+Chapter 2 6
+1. Information technology services firm.
+2. Packaged software producers.
+3. Enterprise-wide solutions
+4. . Application service providers (ASP)
+5. Open source software.
+6. In-house developers.
+
+-- 6 of 12 --
+
+Sources of Software
+Chapter 2 7
+
+-- 7 of 12 --
+
+Reuse
+Chapter 2 8
+ The use of previously written software
+resources, especially objects and
+components, in new applications.
+ Commonly applied to two different
+development technologies:
+ Object-oriented development
+ Component-based development
+
+-- 8 of 12 --
+
+Reuse (Cont)
+Chapter 2 9
+ Object-oriented development
+ Object class encapsulates data
+and behavior of common
+organizational entities (e.g .
+Employees)
+ Object-oriented development
+reuse is using object classes in
+more than one application (e.g.
+Employee).
+
+-- 9 of 12 --
+
+Chapter 2 10
+ Component-based development
+ Components can be as small as
+objects or as large as pieces of
+software that handle single business
+functions.
+ Component-based development
+reuse is the assembly of an
+application from many different
+components at many different
+levels of complexity and size
+(e.g. Currency conversion.)
+
+-- 10 of 12 --
+
+Costs and Benefits of Reuse
+Chapter 2 11
+
+-- 11 of 12 --
+
+Summary
+ In this chapter you learned how to:
+ Explain outsourcing.
+ Describe six different sources of software..
+ Explain reuse and its role in software
+development.
+Chapter 2 12
+
+-- 12 of 12 --
+
