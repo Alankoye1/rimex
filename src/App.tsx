@@ -234,10 +234,10 @@ declare global {
 
 
 const MODELS = {
-  standard: "gemini-3.5-flash",
-  fast: "gemini-3.5-flash",
-  deep: "gemini-3.5-flash",
-  thinking: "gemini-3.5-flash",
+  standard: "gemini-3.1-flash-lite",
+  fast: "gemini-3.1-flash-lite",
+  deep: "gemini-3.1-flash-lite",
+  thinking: "gemini-3.1-flash-lite",
   image: "gemini-2.5-flash-image"
 };
 

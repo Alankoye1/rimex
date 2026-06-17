@@ -84,10 +84,10 @@ async function startServer() {
 
   const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  const canFallbackToFlash = (modelName?: string) => {
+  const canFallbackToLighterModel = (modelName?: string) => {
     if (!modelName) return true;
     if (modelName === "gemini-2.5-flash-image") return false;
-    return !modelName.includes("flash");
+    return modelName !== "gemini-3.1-flash-lite";
   };
 
   const generateContentWithFallback = async ({
@@ -100,7 +100,7 @@ async function startServer() {
     config?: Record<string, any>;
   }) => {
     const ai = getAi();
-    const primaryModel = modelName || "gemini-3.5-flash";
+    const primaryModel = modelName || "gemini-3.1-flash-lite";
     const generate = async (model: string) => {
       const delays = [0, 1500, 3500, 7000];
       let lastError: any;
@@ -132,11 +132,11 @@ async function startServer() {
         fallbackUsed: false,
       };
     } catch (error: any) {
-      if (!isQuotaError(error) || !canFallbackToFlash(primaryModel)) {
+      if ((!isQuotaError(error) && !isTemporaryUnavailableError(error)) || !canFallbackToLighterModel(primaryModel)) {
         throw error;
       }
 
-      const fallbackModel = "gemini-3.5-flash";
+      const fallbackModel = "gemini-3.1-flash-lite";
       const response = await generate(fallbackModel);
 
       return {
