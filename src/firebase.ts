@@ -1,11 +1,12 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut, User } from 'firebase/auth';
-import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, query, where, getDocs, updateDoc } from 'firebase/firestore';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, onAuthStateChanged, signOut, User } from 'firebase/auth';
+import { getFirestore, doc, getDoc, setDoc, addDoc, serverTimestamp, onSnapshot, collection, query, where, getDocs, updateDoc } from 'firebase/firestore';
 import firebaseConfig from '../firebase-applet-config.json';
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+const firestoreDatabaseId = (firebaseConfig as any).firestoreDatabaseId;
+export const db = firestoreDatabaseId ? getFirestore(app, firestoreDatabaseId) : getFirestore(app);
 export const googleProvider = new GoogleAuthProvider();
 
 export enum OperationType {
@@ -57,11 +58,15 @@ export function handleFirestoreError(error: unknown, operationType: OperationTyp
 
 export { 
   signInWithPopup, 
+  signInWithRedirect,
+  getRedirectResult,
   onAuthStateChanged, 
   signOut, 
   doc, 
   getDoc, 
   setDoc, 
+  addDoc,
+  serverTimestamp,
   onSnapshot, 
   collection,
   query,

@@ -203,17 +203,21 @@ import {
   db,
   googleProvider,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   onAuthStateChanged,
   signOut,
   doc,
   getDoc,
   setDoc,
+  addDoc,
   onSnapshot,
   collection,
   query,
   where,
   getDocs,
   updateDoc,
+  serverTimestamp,
   User as FirebaseUser,
   handleFirestoreError,
   OperationType
@@ -845,6 +849,7 @@ const App: React.FC = () => {
   const [academicSearchTerm, setAcademicSearchTerm] = useState('');
   const [isDarkMode, setIsDarkMode] = useState(false);
   const academicPdfRef = useRef<HTMLDivElement>(null);
+  const resultPdfRef = useRef<HTMLDivElement>(null);
   const [isRecording, setIsRecording] = useState(false);
   const [quizQuestions, setQuizQuestions] = useState<any[]>([]);
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
@@ -899,36 +904,120 @@ const App: React.FC = () => {
 
   // PRO & Usage Tracking
   const [isPro, setIsPro] = useState(false);
+  const [planTier, setPlanTier] = useState<'free' | 'pro' | 'max'>('free');
   const [dailyUsageCount, setDailyUsageCount] = useState(0);
   const [showProModal, setShowProModal] = useState(false);
-  const FREE_DAILY_LIMIT = 20;
+  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+  const [showRewardAd, setShowRewardAd] = useState(false);
+  const [rewardCountdown, setRewardCountdown] = useState(30);
+  const [isRewardAdRunning, setIsRewardAdRunning] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
+  const FREE_DAILY_LIMIT = 3;
+  const PRO_CREDITS = 15;
+  const MAX_CREDITS = 100;
+  const PLAN_DETAILS = {
+    free: {
+      label: 'Free',
+      price: '$0',
+      credits: FREE_DAILY_LIMIT,
+      ads: 'Limited ads',
+    },
+    pro: {
+      label: 'Pro',
+      price: '$7',
+      credits: PRO_CREDITS,
+      ads: 'Ads included',
+    },
+    max: {
+      label: 'Max',
+      price: '$20',
+      credits: MAX_CREDITS,
+      ads: 'No ads',
+    },
+  } as const;
 
   useEffect(() => {
-    // Load usage from localStorage on mount
-    const savedUsage = localStorage.getItem('daily_usage_count');
-    const savedDate = localStorage.getItem('last_usage_date');
-    const today = new Date().toLocaleDateString();
-
-    if (savedDate !== today) {
-      setDailyUsageCount(0);
-      localStorage.setItem('daily_usage_count', '0');
-      localStorage.setItem('last_usage_date', today);
-    } else if (savedUsage) {
-      setDailyUsageCount(parseInt(savedUsage));
-    }
+    // Load local credit balance on mount. Firestore becomes the source of truth after login.
+    const savedCredits = localStorage.getItem('credit_balance');
+    const parsedCredits = savedCredits ? Number.parseInt(savedCredits, 10) : FREE_DAILY_LIMIT;
+    setDailyUsageCount(Number.isFinite(parsedCredits) ? parsedCredits : FREE_DAILY_LIMIT);
   }, []);
 
-  const incrementUsage = () => {
-    if (isPro || isAdmin) return true;
-    if (dailyUsageCount >= FREE_DAILY_LIMIT) {
+  const isFreeAction = () => {
+    return currentScreen === 'chat'
+      || currentScreen === 'history'
+      || currentScreen === 'pomodoro'
+      || currentScreen === 'lecture-notes'
+      || activeAcademicTool === 'lecture-notes';
+  };
+
+  const closeRewardAd = () => {
+    setShowRewardAd(false);
+    setIsRewardAdRunning(false);
+    setRewardCountdown(30);
+  };
+
+  const startRewardAd = () => {
+    setRewardCountdown(30);
+    setShowRewardAd(true);
+    setIsRewardAdRunning(true);
+  };
+
+  const claimRewardCredits = async () => {
+    if (!user || rewardCountdown > 0) return;
+    await persistCreditBalance(dailyUsageCount + 5);
+    closeRewardAd();
+  };
+
+  const openUpgradeChannel = (tier: 'pro' | 'max') => {
+    const tierInfo = PLAN_DETAILS[tier];
+    const message = encodeURIComponent(
+      `Hello, I want to activate the ${tierInfo.label} plan for Academic AI.\nPlan: ${tierInfo.label}\nPrice: ${tierInfo.price}\nCredits: ${tierInfo.credits}\nPlease help me activate it manually.`
+    );
+    window.open(`https://wa.me/${officialAccount.phone.replace(/[^0-9]/g, '')}?text=${message}`, '_blank');
+  };
+
+  const persistCreditBalance = async (nextCredits: number) => {
+    setDailyUsageCount(nextCredits);
+    localStorage.setItem('credit_balance', nextCredits.toString());
+
+    if (user) {
+      await setDoc(doc(db, 'users', user.uid), {
+        creditBalance: nextCredits,
+        planTier,
+        isPro: planTier !== 'free',
+        updatedAt: Date.now()
+      }, { merge: true });
+    }
+  };
+
+  const incrementUsage = async () => {
+    if (isAdmin || isFreeAction()) return true;
+    if (!user) {
+      setShowAuthPrompt(true);
+      return false;
+    }
+    if (dailyUsageCount <= 0) {
       setShowProModal(true);
       return false;
     }
-    const newCount = dailyUsageCount + 1;
-    setDailyUsageCount(newCount);
-    localStorage.setItem('daily_usage_count', newCount.toString());
+    await persistCreditBalance(dailyUsageCount - 1);
     return true;
   };
+
+  useEffect(() => {
+    if (!showRewardAd || !isRewardAdRunning) return;
+    if (rewardCountdown <= 0) {
+      setIsRewardAdRunning(false);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setRewardCountdown(prev => Math.max(prev - 1, 0));
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [showRewardAd, isRewardAdRunning, rewardCountdown]);
 
   useEffect(() => {
     let interval: any;
@@ -970,6 +1059,17 @@ const App: React.FC = () => {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    getRedirectResult(auth).catch((error: any) => {
+      console.error('Google redirect sign-in failed:', error);
+      if (error?.code === 'auth/unauthorized-domain') {
+        setAuthError('This domain is not authorized for Firebase Auth. Add your deployed domain in Firebase Console > Authentication > Settings > Authorized domains.');
+      } else {
+        setAuthError('Google sign-in failed. Please try again or check Firebase Auth settings.');
+      }
+    });
+  }, []);
+
   // Sync Profile with Firestore
   useEffect(() => {
     if (!user) return;
@@ -981,7 +1081,18 @@ const App: React.FC = () => {
         setUserName(data.displayName || user.displayName || 'بەکارهێنەر');
         setUserEmail(data.email || user.email || '');
         setUserPhone(data.phone || '');
-        setIsPro(data.isPro || false);
+        const nextPlan = (data.planTier as 'free' | 'pro' | 'max' | undefined) || (data.isMax ? 'max' : data.isPro ? 'pro' : 'free');
+        const nextCredits = typeof data.creditBalance === 'number'
+          ? data.creditBalance
+          : nextPlan === 'max'
+            ? MAX_CREDITS
+            : nextPlan === 'pro'
+              ? PRO_CREDITS
+              : FREE_DAILY_LIMIT;
+        setPlanTier(nextPlan);
+        setIsPro(nextPlan !== 'free');
+        setDailyUsageCount(nextCredits);
+        localStorage.setItem('credit_balance', String(nextCredits));
       } else {
         // Create initial profile
         setDoc(userDocRef, {
@@ -990,7 +1101,11 @@ const App: React.FC = () => {
           email: user.email,
           photoURL: user.photoURL,
           role: 'user',
+          planTier: 'free',
           isPro: false,
+          isMax: false,
+          creditBalance: FREE_DAILY_LIMIT,
+          adsEnabled: true,
           createdAt: Date.now()
         }).catch((err) => {
           handleFirestoreError(err, OperationType.WRITE, `users/${user.uid}`);
@@ -1039,9 +1154,27 @@ const App: React.FC = () => {
 
   const handleGoogleLogin = async () => {
     try {
+      setAuthError(null);
       await signInWithPopup(auth, googleProvider);
+      return true;
     } catch (error) {
       console.error("Login failed:", error);
+      const code = (error as any)?.code as string | undefined;
+      if (code === 'auth/popup-blocked' || code === 'auth/popup-closed-by-user' || code === 'auth/cancelled-popup-request' || code === 'auth/operation-not-supported-in-this-environment') {
+        try {
+          await signInWithRedirect(auth, googleProvider);
+          return true;
+        } catch (redirectError) {
+          console.error('Redirect login failed:', redirectError);
+        }
+      }
+
+      if (code === 'auth/unauthorized-domain') {
+        setAuthError('This deployed domain is not authorized in Firebase Auth. Add aiacademicnetwork.com to the authorized domains list.');
+      } else {
+        setAuthError('Google sign-in failed. Please check the Firebase Auth provider and domain settings.');
+      }
+      return false;
     }
   };
 
@@ -1174,7 +1307,7 @@ const App: React.FC = () => {
     chatSessionRef.current = genAI.chats.create({
       model: MODELS.fast,
       config: {
-        systemInstruction: "تۆ پسپۆڕێکی ئەکادیمی و یاریدەدەرێکی زیرەکی کوردی (Academic AI Kurdish Specialist). وەڵامەکانت دەبێت هەمیشە بە زمانی کوردی سۆرانی بن، مەگەر بەکارهێنەر داوای زمانێکی دیکە بکات. پێویستە وەڵامەکانت ورد، زانستی، و ڕەوان بن. وەک مامۆستایەک یان توێژەرێکی لێهاتوو هاوکاری خوێندکاران و توێژەران بکە لە چارەسەرکردنی گرفتە ئەکادیمییەکانیان."
+        systemInstruction: "تۆ پسپۆڕێکی ئەکادیمی و یاریدەدەرێکی زیرەکی کوردی (Academic AI Specialist). وەڵامەکانت دەبێت هەمیشە بە زمانی کوردی سۆرانی بن، مەگەر بەکارهێنەر داوای زمانێکی دیکە بکات. پێویستە وەڵامەکانت ورد، زانستی، و ڕەوان بن. وەک مامۆستایەک یان توێژەرێکی لێهاتوو هاوکاری خوێندکاران و توێژەران بکە لە چارەسەرکردنی گرفتە ئەکادیمییەکانیان."
       }
     });
   };
@@ -1184,7 +1317,7 @@ const App: React.FC = () => {
       model: isUltraTurbo ? MODELS.fast : MODELS.deep,
       history: historyMessages,
       config: {
-        systemInstruction: "You are Ultra Intelligence (ژیریی دەستکردی بێسنوور), the most advanced version of Academic AI Kurdish. You are a 'Super-Intelligence' that never says 'I can't'. Your limits are expanded: you can generate 5000+ words, solve the most complex PhD-level math/physics, and provide real-time verified data via Google Search. You must provide extremely long, structure, and detailed responses using professional Markdown (tables, bold text, headers). Identity: Global Kurdish Intelligence Specialist. Always respond in formal Kurdish Sorani unless asked otherwise.",
+        systemInstruction: "You are Ultra Intelligence (ژیریی دەستکردی بێسنوور), the most advanced version of Academic AI. You are a 'Super-Intelligence' that never says 'I can't'. Your limits are expanded: you can generate 5000+ words, solve the most complex PhD-level math/physics, and provide real-time verified data via Google Search. You must provide extremely long, structure, and detailed responses using professional Markdown (tables, bold text, headers). Identity: Global Kurdish Intelligence Specialist. Always respond in formal Kurdish Sorani unless asked otherwise.",
         tools: [{ googleSearch: {} }]
       }
     });
@@ -1416,7 +1549,7 @@ const App: React.FC = () => {
 
   const handleConvertToReport = async () => {
     if (!academicResult || isAcademicLoading) return;
-    if (!incrementUsage()) return;
+    if (!(await incrementUsage())) return;
     setIsAcademicLoading(true);
     try {
       const convPrompt = `Directly convert the following seminar presentation into a comprehensive academic report. 
@@ -1442,7 +1575,7 @@ const App: React.FC = () => {
 
   const handleConvertToSeminar = async () => {
     if (!academicResult || isAcademicLoading) return;
-    if (!incrementUsage()) return;
+    if (!(await incrementUsage())) return;
     setIsAcademicLoading(true);
     try {
       const convPrompt = `Directly convert the following academic report into a concise and brief seminar presentation (max 5-7 slides to ensure it generates fast). 
@@ -1475,7 +1608,7 @@ const App: React.FC = () => {
 
   const handleTranslate = async () => {
     if (!inputText.trim()) return;
-    if (!incrementUsage()) return;
+    if (!(await incrementUsage())) return;
     setIsLoading(true);
     setResultText('');
     try {
@@ -1497,7 +1630,7 @@ const App: React.FC = () => {
 
   const handleSendMessage = async () => {
     if ((!chatInput.trim() && !chatFile) || isChatLoading) return;
-    if (!incrementUsage()) return;
+    if (!(await incrementUsage())) return;
 
     const userMsg = chatInput;
     setChatInput('');
@@ -1580,7 +1713,7 @@ const App: React.FC = () => {
 
   const handleSendUltraMessage = async () => {
     if ((!ultraChatInput.trim() && !ultraChatFile) || isUltraChatLoading) return;
-    if (!incrementUsage()) return;
+    if (!(await incrementUsage())) return;
 
     const userMsg = ultraChatInput.trim();
     setUltraChatInput('');
@@ -1693,7 +1826,7 @@ const App: React.FC = () => {
 
   const runMultimodal = async () => {
     if (isMultiLoading) return;
-    if (!incrementUsage()) return;
+    if (!(await incrementUsage())) return;
     setIsMultiLoading(true);
     setMultiResult(null);
     try {
@@ -1773,7 +1906,7 @@ const App: React.FC = () => {
 
   const runAcademicTool = async () => {
     if (isAcademicLoading) return;
-    if (!incrementUsage()) return;
+    if (!(await incrementUsage())) return;
     setIsAcademicLoading(true);
     setAcademicResult(null);
     try {
@@ -2338,7 +2471,7 @@ const App: React.FC = () => {
 
   const handlePdfChat = async () => {
     if (!pdfChatInput.trim() || isPdfChatLoading || !selectedFile) return;
-    if (!incrementUsage()) return;
+    if (!(await incrementUsage())) return;
 
     const userMsg = pdfChatInput;
     setPdfChatInput('');
@@ -2418,11 +2551,62 @@ const App: React.FC = () => {
     document.body.removeChild(element);
   };
 
-  const handleDownloadPDF = (filename: string) => {
-    if (!academicPdfRef.current) return;
+  const savePdfRecord = async ({
+    title,
+    filename,
+    tool,
+    content,
+  }: {
+    title: string;
+    filename: string;
+    tool: string;
+    content: string;
+  }) => {
+    if (!user) return;
 
-    const element = academicPdfRef.current;
+    try {
+      await addDoc(collection(db, 'generated_pdfs'), {
+        uid: user.uid,
+        email: user.email || '',
+        title,
+        filename,
+        tool,
+        content,
+        createdAt: serverTimestamp(),
+      });
+    } catch (error) {
+      console.error('Failed to save PDF record:', error);
+    }
+  };
+
+  const handleDownloadPDF = async (
+    filename: string,
+    options?: {
+      ref?: React.RefObject<HTMLDivElement>;
+      title?: string;
+      tool?: string;
+      content?: string;
+    }
+  ) => {
+    const targetRef = options?.ref || academicPdfRef;
+    if (!targetRef.current) return;
+
+    const element = targetRef.current;
     element.classList.add('pdf-content');
+
+    if (options?.content) {
+      await savePdfRecord({
+        title: options.title || filename.replace('.pdf', ''),
+        filename,
+        tool: options.tool || 'academic',
+        content: options.content,
+      });
+      saveToHistory(
+        'pdf',
+        options.title || filename.replace('.pdf', ''),
+        options.content
+      );
+    }
 
     // @ts-ignore
     const opt = {
@@ -2573,7 +2757,7 @@ const App: React.FC = () => {
                       <>
                         <div className="w-1.5 h-1.5 rounded-full bg-sky-600 animate-pulse" />
                         <span className="text-[10px] font-black text-white uppercase tracking-widest">
-                          {FREE_DAILY_LIMIT - dailyUsageCount} دانە ماوەتەوە
+                          {user ? `${dailyUsageCount} credits left` : 'Google sign-in required'}
                         </span>
                       </>
                     )}
@@ -2634,7 +2818,7 @@ const App: React.FC = () => {
                   }}
                   className="text-5xl md:text-7xl font-black mb-3 tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-white via-sky-600 to-white bg-[length:200%_auto] drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] cursor-pointer hover:scale-[1.02] active:scale-[0.98] transition-transform duration-700 ease-out"
                 >
-                  Academic AI Kurdish
+                  Academic AI
                 </motion.h1>
 
                 <motion.p
@@ -2643,7 +2827,7 @@ const App: React.FC = () => {
                   transition={{ delay: 0.5, duration: 1 }}
                   className="text-white/60 font-medium tracking-[0.3em] uppercase text-[10px] mb-4"
                 >
-                  پەرەپێدراوە لەلایەن: محەمەد سەفەر
+                  پەرەپێدراوە لەلایەن: محەمەد سەفەر و ئالان ئازاد
                 </motion.p>
 
                 <motion.div
@@ -3180,7 +3364,15 @@ const App: React.FC = () => {
                       <button onClick={() => handleCopy(academicResult)} className="bg-cyan-600 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-transform active:scale-95">
                         <Copy size={16} /> کۆپی
                       </button>
-                      <button onClick={() => handleDownloadPDF(`lecture_notes_${Date.now()}.pdf`)} className="bg-red-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-transform active:scale-95 shadow-lg shadow-red-500/20">
+                      <button
+                        onClick={() => handleDownloadPDF(`lecture_notes_${Date.now()}.pdf`, {
+                          ref: academicPdfRef,
+                          title: 'Lecture Notes PDF',
+                          tool: 'lecture-notes',
+                          content: academicResult || '',
+                        })}
+                        className="bg-red-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-transform active:scale-95 shadow-lg shadow-red-500/20"
+                      >
                         <Download size={16} /> PDF
                       </button>
                       <button onClick={() => handleDownload(academicResult, `lecture_notes_${Date.now()}.txt`)} className="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-transform active:scale-95">
@@ -3476,7 +3668,7 @@ const App: React.FC = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="min-h-screen flex flex-col max-w-2xl mx-auto"
+            className="min-h-screen flex flex-col w-full max-w-3xl mx-auto"
           >
             <header className="bg-white border-b p-4 flex items-center justify-between sticky top-0 z-10">
               <button onClick={() => setCurrentScreen('home')} className="p-2 text-slate-500 hover:bg-slate-100 rounded-xl">
@@ -3486,12 +3678,12 @@ const App: React.FC = () => {
               <div className="w-10"></div>
             </header>
 
-            <div className="p-4 flex flex-col gap-4">
-              <div className="bg-white p-3 rounded-2xl shadow-sm border flex items-center gap-3">
+            <div className="p-3 sm:p-4 flex flex-col gap-4">
+              <div className="bg-white p-3 rounded-2xl shadow-sm border flex flex-col gap-3 md:flex-row md:items-center">
                 <select
                   value={sourceLang}
                   onChange={(e) => setSourceLang(e.target.value)}
-                  className="flex-1 bg-slate-50 p-3 rounded-xl border outline-none font-bold text-sm text-center appearance-none"
+                  className="w-full md:flex-1 bg-slate-50 p-3 rounded-xl border outline-none font-bold text-sm text-center appearance-none"
                 >
                   <option value="Auto-detect">دۆزینەوەی زمان</option>
                   <option value="English">English</option>
@@ -3501,7 +3693,7 @@ const App: React.FC = () => {
 
                 <button
                   onClick={handleSwapLanguages}
-                  className="p-3 bg-sky-600 text-white rounded-xl shadow-lg hover:bg-sky-600 transition-all active:scale-90"
+                  className="w-full md:w-auto p-3 bg-sky-600 text-white rounded-xl shadow-lg hover:bg-sky-600 transition-all active:scale-90"
                 >
                   <ArrowLeftRight size={20} />
                 </button>
@@ -3509,7 +3701,7 @@ const App: React.FC = () => {
                 <select
                   value={targetLang}
                   onChange={(e) => setTargetLang(e.target.value)}
-                  className="flex-1 bg-slate-50 p-3 rounded-xl border outline-none font-bold text-sm text-center appearance-none"
+                  className="w-full md:flex-1 bg-slate-50 p-3 rounded-xl border outline-none font-bold text-sm text-center appearance-none"
                 >
                   <option value="Kurdish Sorani">سۆرانی (Sorani)</option>
                   <option value="Kurdish Badini">بادینی (Badini)</option>
@@ -3523,14 +3715,14 @@ const App: React.FC = () => {
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
                   placeholder="تێکستەکە لێرە بنووسە یان پەیستی بکە..."
-                  className="w-full flex-grow outline-none text-lg resize-none text-right text-slate-800 min-h-[200px]"
+                  className="w-full flex-grow outline-none text-base sm:text-lg resize-none text-right text-slate-800 min-h-[180px]"
                 />
-                <div className="flex justify-between items-center mt-4 pt-4 border-t">
-                  <div className="flex gap-2">
+                <div className="flex flex-col gap-3 mt-4 pt-4 border-t sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex flex-wrap gap-2">
                     <button
                       onClick={handleVoiceInput}
                       title="قسەکردن"
-                      className={`px-4 py-3 rounded-full transition-all flex items-center justify-center gap-2 ${isRecording ? 'bg-red-500 text-white shadow-lg shadow-red-500/30' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-sky-600'}`}
+                      className={`px-4 py-3 rounded-full transition-all flex items-center justify-center gap-2 min-w-[132px] ${isRecording ? 'bg-red-500 text-white shadow-lg shadow-red-500/30' : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-sky-600'}`}
                     >
                       {isRecording ? (
                         <>
@@ -3544,7 +3736,7 @@ const App: React.FC = () => {
                     <button
                       onClick={handlePaste}
                       title="پەیست کردن (Paste)"
-                      className="px-4 py-3 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-sky-600 transition-all flex items-center justify-center gap-2"
+                      className="px-4 py-3 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-sky-600 transition-all flex items-center justify-center gap-2 min-w-[120px]"
                     >
                       <ClipboardPaste size={20} />
                       <span className="text-sm font-bold">پەیست</span>
@@ -3553,7 +3745,7 @@ const App: React.FC = () => {
                   <button
                     onClick={handleClearAll}
                     title="سڕینەوەی هەمووی"
-                    className="flex items-center gap-2 px-4 py-2 rounded-xl text-red-500 hover:bg-red-50 transition-all font-medium text-sm"
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl text-red-500 hover:bg-red-50 transition-all font-medium text-sm self-start sm:self-auto"
                   >
                     <span>سڕینەوە</span>
                     <Trash2 size={18} />
@@ -3564,7 +3756,7 @@ const App: React.FC = () => {
               <button
                 onClick={handleTranslate}
                 disabled={isLoading}
-                className="w-full bg-sky-600 text-white py-5 rounded-3xl font-bold text-xl shadow-xl flex items-center justify-center gap-3 active:scale-95 transition-all disabled:bg-slate-300"
+                className="w-full bg-sky-600 text-white py-5 rounded-3xl font-bold text-lg sm:text-xl shadow-xl flex items-center justify-center gap-3 active:scale-95 transition-all disabled:bg-slate-300"
               >
                 {isLoading ? <Loader2 className="animate-spin" size={28} /> : <Sparkles size={28} />}
                 <span>{isLoading ? 'چاوەڕوانبە...' : 'وەرگێڕانی ئێستا'}</span>
@@ -3574,7 +3766,7 @@ const App: React.FC = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-white border-2 border-sky-600 rounded-3xl p-6 shadow-2xl"
+                  className="bg-white border-2 border-sky-600 rounded-3xl p-4 sm:p-6 shadow-2xl"
                 >
                   <div className="flex justify-between items-center mb-4 pb-4 border-b">
                     <div className="flex gap-2">
@@ -4144,7 +4336,7 @@ const App: React.FC = () => {
 
                 {academicResult && activeAcademicTool !== 'pdf-chat' && (
                   <motion.div
-                    ref={resultRef}
+                    ref={resultPdfRef}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className={`${isDarkMode ? 'bg-slate-900 border-slate-800 text-slate-100' : 'bg-white border-slate-200 text-slate-800'} rounded-[3rem] p-8 shadow-2xl border-2 space-y-6`}
@@ -4154,6 +4346,22 @@ const App: React.FC = () => {
                         <button onClick={() => handleCopy(academicResult)} className="text-sky-600 hover:bg-sky-600/10 p-3 rounded-2xl transition-colors">
                           <Copy size={20} />
                         </button>
+                        {(activeAcademicTool === 'report-gen' || activeAcademicTool === 'seminar-gen') && (
+                          <button
+                            onClick={() => handleDownloadPDF(
+                              `${activeAcademicTool}_${Date.now()}.pdf`,
+                              {
+                                ref: resultPdfRef,
+                                title: activeAcademicTool === 'report-gen' ? 'Report PDF' : 'Seminar PDF',
+                                tool: activeAcademicTool,
+                                content: academicResult || '',
+                              }
+                            )}
+                            className="text-red-500 hover:bg-red-500/10 p-3 rounded-2xl transition-colors"
+                          >
+                            <Download size={20} />
+                          </button>
+                        )}
                         {activeAcademicTool === 'report-gen' && (
                           <button
                             onClick={() => {
@@ -4597,7 +4805,7 @@ const App: React.FC = () => {
                       <CheckCircle2 size={12} className="text-emerald-500" />
                       <span>وەشانی فەرمی ئەکادیمی</span>
                     </div>
-                    <span className="opacity-60 uppercase tracking-widest">Developed by: Mohamad Safar</span>
+                    <span className="opacity-60 uppercase tracking-widest">Developed by: Mohamad Safar & Alan Azad</span>
                   </div>
                 </div>
               </div>
@@ -5278,9 +5486,166 @@ const App: React.FC = () => {
         )}
       </AnimatePresence>
 
+      <AnimatePresence>
+        {showAuthPrompt && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[110] flex items-center justify-center p-6 bg-black/70 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className={`w-full max-w-md rounded-[32px] p-8 shadow-2xl border ${isDarkMode ? 'bg-slate-900 border-white/10 text-white' : 'bg-white border-slate-200 text-slate-900'}`}
+            >
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-2xl bg-sky-600/10 text-sky-600 flex items-center justify-center">
+                    <Shield size={24} />
+                  </div>
+                  <div>
+                    <p className="text-[10px] uppercase tracking-[0.3em] font-black opacity-50">Account required</p>
+                    <h3 className="text-2xl font-black">Google sign-in</h3>
+                  </div>
+                </div>
+                <button onClick={() => setShowAuthPrompt(false)} className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+                  <X size={18} />
+                </button>
+              </div>
+
+              <p className="text-sm leading-relaxed opacity-70 mb-6">
+                Before using credits, please sign in with Google. Free tools like chat, history, lecture notes, and study time remain free.
+              </p>
+
+              {authError && (
+                <div className={`mb-5 p-4 rounded-2xl text-sm font-medium border ${isDarkMode ? 'bg-red-500/10 border-red-500/20 text-red-200' : 'bg-red-50 border-red-200 text-red-700'}`}>
+                  {authError}
+                </div>
+              )}
+
+              <div className="space-y-3">
+                <button
+                  onClick={async () => {
+                    const success = await handleGoogleLogin();
+                    if (success) setShowAuthPrompt(false);
+                  }}
+                  className="w-full py-4 rounded-2xl bg-sky-600 text-white font-black shadow-lg shadow-sky-600/25 flex items-center justify-center gap-3"
+                >
+                  <Globe size={18} />
+                  Continue with Google
+                </button>
+                <button
+                  onClick={() => setShowAuthPrompt(false)}
+                  className={`w-full py-3 rounded-2xl font-bold ${isDarkMode ? 'bg-white/5 text-white/70' : 'bg-slate-100 text-slate-600'}`}
+                >
+                  Close
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showRewardAd && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[115] flex items-center justify-center p-6 bg-black/75 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className={`w-full max-w-lg rounded-[36px] overflow-hidden shadow-2xl border ${isDarkMode ? 'bg-slate-900 border-white/10 text-white' : 'bg-white border-slate-200 text-slate-900'}`}
+            >
+              <div className="p-6 bg-gradient-to-br from-amber-500 via-orange-500 to-rose-500 text-white relative overflow-hidden">
+                <button onClick={closeRewardAd} className="absolute top-4 right-4 p-2 bg-white/15 rounded-full hover:bg-white/25 transition-colors">
+                  <X size={18} />
+                </button>
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center">
+                    <Play size={24} fill="currentColor" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] uppercase tracking-[0.35em] font-black opacity-80">Reward ad</p>
+                    <h3 className="text-2xl font-black">Watch 30 seconds</h3>
+                  </div>
+                </div>
+                <p className="text-sm opacity-90 max-w-md">
+                  Finish the countdown to receive 5 credits instantly.
+                </p>
+              </div>
+
+              <div className="p-6 space-y-5">
+                {!isRewardAdRunning ? (
+                  <>
+                    <div className={`p-4 rounded-2xl ${isDarkMode ? 'bg-slate-800' : 'bg-slate-50'}`}>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="font-bold">Ready to start</span>
+                        <span className="text-sm font-black text-emerald-500">+5 credits</span>
+                      </div>
+                      <p className="text-sm opacity-70">Press the button below to start the 30 second reward timer.</p>
+                    </div>
+                    <button
+                      onClick={startRewardAd}
+                      className="w-full py-4 rounded-2xl bg-emerald-600 text-white font-black shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-3"
+                    >
+                      <Clock size={18} />
+                      Start 30 second ad
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-sm font-bold">
+                        <span>Ad progress</span>
+                        <span className="text-amber-500">{rewardCountdown}s</span>
+                      </div>
+                      <div className={`h-3 rounded-full overflow-hidden ${isDarkMode ? 'bg-slate-800' : 'bg-slate-100'}`}>
+                        <div
+                          className="h-full rounded-full bg-gradient-to-r from-amber-500 to-rose-500 transition-all duration-1000"
+                          style={{ width: `${Math.max(0, ((30 - rewardCountdown) / 30) * 100)}%` }}
+                        />
+                      </div>
+                    </div>
+
+                    <div className={`p-4 rounded-2xl border ${isDarkMode ? 'bg-white/5 border-white/10' : 'bg-amber-50 border-amber-200'}`}>
+                      <div className="flex items-center gap-3 mb-2">
+                        <Coins size={18} className="text-amber-500" />
+                        <span className="font-bold">Reward credits</span>
+                      </div>
+                      <p className="text-sm opacity-70">When the timer ends, you can claim 5 credits.</p>
+                    </div>
+
+                    <button
+                      onClick={claimRewardCredits}
+                      disabled={rewardCountdown > 0}
+                      className="w-full py-4 rounded-2xl font-black text-white shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed bg-sky-600"
+                    >
+                      {rewardCountdown > 0 ? `Please wait ${rewardCountdown}s` : 'Claim +5 credits'}
+                    </button>
+                  </>
+                )}
+
+                <button
+                  onClick={closeRewardAd}
+                  className={`w-full py-3 rounded-2xl font-bold ${isDarkMode ? 'bg-white/5 text-white/70' : 'bg-slate-100 text-slate-600'}`}
+                >
+                  Close
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Pro Modal */}
       <AnimatePresence>
-        {showProModal && (
+        {false && showProModal && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

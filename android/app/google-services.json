@@ -7,12 +7,25 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:803931806624:android:ed3618329559b1344ae2c5",
+        "mobilesdk_app_id": "1:803931806624:android:99b5cf5eae5f6b9d4ae2c5",
         "android_client_info": {
-          "package_name": "com.remix.app"
+          "package_name": "com.rimex.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "803931806624-ihk4knjll17694240ms42bef3357cv9h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rimex.app",
+            "certificate_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709"
+          }
+        },
+        {
+          "client_id": "803931806624-k2g5n8lpvudf76uh5vhtukl6ld6lba97.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCm0AyrVWXIBy-KVRrpipKy_uJ3qAO9Ld8"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803931806624-k2g5n8lpvudf76uh5vhtukl6ld6lba97.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
