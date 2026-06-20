@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "803931806624",
+    "project_id": "acadimec-lesrning-app",
+    "storage_bucket": "acadimec-lesrning-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803931806624:android:ed3618329559b1344ae2c5",
+        "android_client_info": {
+          "package_name": "com.remix.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCm0AyrVWXIBy-KVRrpipKy_uJ3qAO9Ld8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
