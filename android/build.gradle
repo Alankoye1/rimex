@@ -1,8 +1,4 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-plugin{
-    id 'com.google.gms.google-services' version '4.5.0' apply false
-}
-
 buildscript {
     
     repositories {
@@ -18,14 +14,11 @@ buildscript {
     }
 }
 
-apply from: "variables.gradle"
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
+plugins {
+    id 'com.google.gms.google-services' version '4.5.0' apply false
 }
+
+apply from: "variables.gradle"
 
 task clean(type: Delete) {
     delete rootProject.buildDir
